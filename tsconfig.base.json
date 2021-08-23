@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@chat-demo/essentials": ["libs/ui/chat-essentials/src/index.ts"],
+      "@wkart/interfaces": ["libs/utils/interfaces/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

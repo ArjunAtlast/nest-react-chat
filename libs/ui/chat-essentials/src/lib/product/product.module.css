@@ -1,0 +1,7 @@
+.product-list-item {
+  cursor: pointer;
+}
+.product-list-item:hover {
+  background: rgba(0,0,0,0.02);
+  transition: background 0.3s ease-in;
+}

@@ -1,7 +1,244 @@
 {
   "version": 2,
-  "projects": {},
+  "projects": {
+    "chat-backend": {
+      "root": "apps/chat-backend",
+      "sourceRoot": "apps/chat-backend/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/chat-backend",
+            "main": "apps/chat-backend/src/main.ts",
+            "tsConfig": "apps/chat-backend/tsconfig.app.json",
+            "assets": ["apps/chat-backend/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/chat-backend/src/environments/environment.ts",
+                  "with": "apps/chat-backend/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "chat-backend:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/chat-backend/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/chat-backend"],
+          "options": {
+            "jestConfig": "apps/chat-backend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "chat-manufacturer": {
+      "root": "apps/chat-manufacturer",
+      "sourceRoot": "apps/chat-manufacturer/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/chat-manufacturer",
+            "index": "apps/chat-manufacturer/src/index.html",
+            "main": "apps/chat-manufacturer/src/main.tsx",
+            "polyfills": "apps/chat-manufacturer/src/polyfills.ts",
+            "tsConfig": "apps/chat-manufacturer/tsconfig.app.json",
+            "assets": [
+              "apps/chat-manufacturer/src/favicon.ico",
+              "apps/chat-manufacturer/src/assets"
+            ],
+            "styles": ["apps/chat-manufacturer/src/styles.css"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/chat-manufacturer/src/environments/environment.ts",
+                  "with": "apps/chat-manufacturer/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "chat-manufacturer:build",
+            "hmr": true,
+            "proxyConfig": "apps/chat-manufacturer/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "chat-manufacturer:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/chat-manufacturer/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/chat-manufacturer"],
+          "options": {
+            "jestConfig": "apps/chat-manufacturer/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "chat-user": {
+      "root": "apps/chat-user",
+      "sourceRoot": "apps/chat-user",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "root": "apps/chat-user",
+            "outputPath": "dist/apps/chat-user"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "chat-user:build",
+            "dev": true,
+            "port": 4000
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "chat-user:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "chat-user:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/chat-user"],
+          "options": {
+            "jestConfig": "apps/chat-user/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/chat-user/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "ui-chat-essentials": {
+      "root": "libs/ui/chat-essentials",
+      "sourceRoot": "libs/ui/chat-essentials/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ui/chat-essentials/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "utils-interfaces": {
+      "root": "libs/utils/interfaces",
+      "sourceRoot": "libs/utils/interfaces/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/utils/interfaces/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/utils/interfaces"],
+          "options": {
+            "jestConfig": "libs/utils/interfaces/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "css",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "chat-manufacturer"
 }
